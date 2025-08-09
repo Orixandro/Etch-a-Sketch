@@ -56,5 +56,30 @@ select {
 
 #optionContainer {
     display: flex;
-    gap: 16px;
+    align-self: stretch;
+    justify-content: space-between;
+}
+
+#modes {
+    background-color: rgb(193, 193, 255);
+    padding: 10px 20px;
+    font-size: large;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+#modes button {
+    padding: 5px 10px;
+    font-size: medium;
+    display: flex;
+    align-items: center;
+}
+
+#modes p {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
