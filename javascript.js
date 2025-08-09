@@ -3,6 +3,9 @@ function createGrid(container, size) {
         let subDivision = document.createElement("div")
         for (let j = 0; j < size; j++) {
             let square = document.createElement("div")
+            if (border) {
+                square.classList.add("border")
+            }
             square.addEventListener("mouseover", (e) => {
                 if (e.ctrlKey) {
                     switch (mode) {
@@ -26,6 +29,8 @@ function createGrid(container, size) {
                             break
                     }
                 } else if (e.shiftKey) {
+                    square.classList.remove("isShadow")
+                    square.style.opacity = 1
                     square.style.backgroundColor = "white"
                 }
             })
@@ -47,11 +52,14 @@ function resetGrid(container, size) {
 const container = document.querySelector("#gridContainer")
 let size = 120
 let mode = "normal"
+let border = false
 
 createGrid(container, size)
 
 const borderButton = document.querySelector("#borderButton")
 borderButton.addEventListener("click", () => {
+    border = !border
+    borderButton.classList.toggle("selectedButton")
     const grid = document.querySelectorAll("#gridContainer > div > div")
     grid.forEach((square) => square.classList.toggle("border"))
 })
