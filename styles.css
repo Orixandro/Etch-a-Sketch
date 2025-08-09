@@ -46,10 +46,6 @@ select {
     display: flex;
 }
 
-#gridContainer .active {
-    background-color: black;
-}
-
 .border {
     border: 1px solid black;
 }
@@ -82,4 +78,8 @@ select {
     margin: 0;
     display: flex;
     align-items: center;
+}
+
+.selectedButton {
+    background-color: gray;
 }

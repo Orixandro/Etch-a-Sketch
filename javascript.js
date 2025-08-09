@@ -5,9 +5,28 @@ function createGrid(container, size) {
             let square = document.createElement("div")
             square.addEventListener("mouseover", (e) => {
                 if (e.ctrlKey) {
-                    square.classList.add("active")
+                    switch (mode) {
+                        case "normal":
+                            square.classList.remove("isShadow")
+                            square.style.opacity = 1
+                            square.style.backgroundColor = "black"
+                            break
+                        case "shadow":
+                            if (!(square.classList.contains("isShadow"))) {
+                                square.style.opacity = 0
+                                square.classList.add("isShadow")
+                            }
+                            square.style.backgroundColor = "black"
+                            square.style.opacity = Number(square.style.getPropertyValue("opacity")) + 0.1
+                            break
+                        case "rgb":
+                            square.classList.remove("isShadow")
+                            square.style.opacity = 1
+                            square.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
+                            break
+                    }
                 } else if (e.shiftKey) {
-                    square.classList.remove("active")
+                    square.style.backgroundColor = "white"
                 }
             })
             subDivision.appendChild(square)
@@ -27,6 +46,7 @@ function resetGrid(container, size) {
 
 const container = document.querySelector("#gridContainer")
 let size = 120
+let mode = "normal"
 
 createGrid(container, size)
 
@@ -44,4 +64,30 @@ const sizeButton = document.querySelector("#sizeButton")
 sizeButton.addEventListener("click", () => {
     size = Number(sizeList.value)
     resetGrid(container, size)
+})
+
+const normalMode = document.querySelector("#normalButton")
+normalMode.classList.add("selectedButton")
+const shadowMode = document.querySelector("#shadowButton")
+const rgbMode = document.querySelector("#rgbButton")
+
+normalMode.addEventListener("click", () => {
+    mode = "normal"
+    normalMode.classList.add("selectedButton")
+    shadowMode.classList.remove("selectedButton")
+    rgbMode.classList.remove("selectedButton")
+})
+
+shadowMode.addEventListener("click", () => {
+    mode = "shadow"
+    normalMode.classList.remove("selectedButton")
+    shadowMode.classList.add("selectedButton")
+    rgbMode.classList.remove("selectedButton")
+})
+
+rgbMode.addEventListener("click", () => {
+    mode = "rgb"
+    normalMode.classList.remove("selectedButton")
+    shadowMode.classList.remove("selectedButton")
+    rgbMode.classList.add("selectedButton")
 })
